@@ -15,6 +15,7 @@ function authenticate(req, res, next) {
 
     if (userTrueToken === userAccessToken) {
         console.log("user authorized");
+
         next();
     }
     else {

@@ -1,9 +1,45 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql2/promise');
+require('dotenv').config()
 var jwt = require('jsonwebtoken');
-const { json } = require('express/lib/response');
+const createSupabaseClient = require("@supabase/supabase-js").createClient;
 
+const supabaseUrl = 'https://jmbscrklvgpkrnduzroz.supabase.co'
+const supabaseKey = process.env.SUPABASE_KEY
+const supabase = createSupabaseClient(supabaseUrl, supabaseKey)
+
+router.post("/:username&:password", (async (req, res) => {
+
+  let USER;
+
+  try {
+    const { data: users, error } = await supabase
+      .from('users')
+      .select('*')
+      .eq('username', `${req.params.username}`)
+      .eq('password', `${req.params.password}`)
+
+    if (users.length === 0) {
+      res.status(404).send("wrong credentials")
+      return;
+    }
+
+    users.forEach(_user => {
+      USER = _user
+    })
+  }
+  catch (err) {
+    console.log(err);
+  }
+  console.log(USER);
+  const accessToken = jwt.sign(JSON.stringify(USER), process.env.ACCESS_TOKEN_SECRET)
+
+  res.json({ accessToken: accessToken, user: JSON.stringify(USER) })
+
+}))
+
+/*
 const db_pool = mysql.createPool({
   host: 'localhost',
   user: 'arian',
@@ -51,5 +87,6 @@ router.post("/:username&:password", (async (req, res) => {
 
 }))
 
+*/
 
 module.exports = router;
