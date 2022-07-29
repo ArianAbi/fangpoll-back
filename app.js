@@ -10,7 +10,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var pollsListRouter = require('./routes/pollsList');
-var authenticate = require('./routes/authenticate')
+var authenticate = require('./authenticate')
 
 var app = express();
 
@@ -28,6 +28,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/pollsList', authenticate, pollsListRouter)
+app.use('/isLogged', authenticate, (req, res) => {
+  res.status(200).send("Authenticated")
+})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

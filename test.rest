@@ -1,7 +1,1 @@
-GET http://localhost:4000/pollsList
-
-{
-    "accessToken":"gea",
-    "user":"tes"
-}
-
+POST  http://localhost:4000/login/admin&admin
