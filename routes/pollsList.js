@@ -17,6 +17,7 @@ router.post('/', (async (req, res) => {
     let Polls;
 
     try {
+
         Polls = await supabase
             .from('polls')
             .select('*')
@@ -32,9 +33,7 @@ router.post('/', (async (req, res) => {
         console.log(err);
     }
 
-    console.log(Polls);
-
-    res.json(Polls.data)
+    res.json(Polls.body)
 
 }))
 

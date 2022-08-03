@@ -10,7 +10,9 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var pollsListRouter = require('./routes/pollsList');
-var authenticate = require('./authenticate')
+var createPoll = require('./routes/createPoll');
+var pollCardDetail = require('./routes/pollCardDetail');
+var authenticate = require('./authenticate');
 
 var app = express();
 
@@ -31,6 +33,8 @@ app.use('/pollsList', authenticate, pollsListRouter)
 app.use('/isLogged', authenticate, (req, res) => {
   res.status(200).send("Authenticated")
 })
+app.use('/createPoll', authenticate, createPoll)
+app.use('/pollCardDetail', pollCardDetail)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

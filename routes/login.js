@@ -14,12 +14,11 @@ router.post("/:username&:password", (async (req, res) => {
   let USER;
 
   try {
-    const { data: users } = await supabase
+    const { data: users, error } = await supabase
       .from('users')
       .select('*')
       .eq('username', `${req.params.username}`)
       .eq('password', `${req.params.password}`)
-
 
     if (users.length && users.length === 0) {
       res.status(404).send("wrong credentials")
@@ -29,15 +28,16 @@ router.post("/:username&:password", (async (req, res) => {
     users.forEach(_user => {
       USER = _user
     })
+
+    const accessToken = jwt.sign(JSON.stringify(USER), process.env.ACCESS_TOKEN_SECRET)
+
+    res.json({ accessToken: accessToken, user: JSON.stringify(USER) })
+
   }
   catch (err) {
     console.log(err);
+    res.sendStatus(401)
   }
-
-  const accessToken = jwt.sign(JSON.stringify(USER), process.env.ACCESS_TOKEN_SECRET)
-
-  res.json({ accessToken: accessToken, user: JSON.stringify(USER) })
-
 }))
 
 /*
