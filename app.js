@@ -11,7 +11,9 @@ var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var pollsListRouter = require('./routes/pollsList');
 var createPoll = require('./routes/createPoll');
-var pollCardDetail = require('./routes/pollCardDetail');
+var pollPage = require('./routes/pollPage');
+var pollSubmit = require('./routes/pollSubmit');
+var pollVotes = require('./routes/pollVotes');
 var authenticate = require('./authenticate');
 
 var app = express();
@@ -34,7 +36,9 @@ app.use('/isLogged', authenticate, (req, res) => {
   res.status(200).send("Authenticated")
 })
 app.use('/createPoll', authenticate, createPoll)
-app.use('/pollCardDetail', pollCardDetail)
+app.use('/pollPage', pollPage)
+app.use('/pollSubmit', pollSubmit)
+app.use('/pollVotes', pollVotes)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
