@@ -32,8 +32,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/pollsList', authenticate, pollsListRouter)
-app.use('/isLogged', authenticate, (req, res) => {
-  res.status(200).send("Authenticated")
+app.post('/isLogged', authenticate, (req, res) => {
+
+  const user = (JSON.parse(JSON.parse(req.body.data.user)))
+
+  res.status(200).json({ username: user.username })
 })
 app.use('/createPoll', authenticate, createPoll)
 app.use('/pollPage', pollPage)

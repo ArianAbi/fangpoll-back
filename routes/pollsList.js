@@ -5,7 +5,7 @@ var jwt = require('jsonwebtoken');
 const { json } = require('express/lib/response');
 const createSupabaseClient = require("@supabase/supabase-js").createClient;
 
-const supabaseUrl = 'https://jmbscrklvgpkrnduzroz.supabase.co'
+const supabaseUrl = process.env.SUPABASE_URL
 const supabaseKey = process.env.SUPABASE_KEY
 const supabase = createSupabaseClient(supabaseUrl, supabaseKey)
 

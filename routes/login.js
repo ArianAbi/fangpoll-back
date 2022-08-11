@@ -5,7 +5,7 @@ require('dotenv').config()
 var jwt = require('jsonwebtoken');
 const createSupabaseClient = require("@supabase/supabase-js").createClient;
 
-const supabaseUrl = 'https://jmbscrklvgpkrnduzroz.supabase.co'
+const supabaseUrl = process.env.SUPABASE_URL
 const supabaseKey = process.env.SUPABASE_KEY
 const supabase = createSupabaseClient(supabaseUrl, supabaseKey)
 
@@ -32,7 +32,6 @@ router.post("/:username&:password", (async (req, res) => {
     const accessToken = jwt.sign(JSON.stringify(USER), process.env.ACCESS_TOKEN_SECRET)
 
     res.json({ accessToken: accessToken, user: JSON.stringify(USER) })
-
   }
   catch (err) {
     console.log(err);
