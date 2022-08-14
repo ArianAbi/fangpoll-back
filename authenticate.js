@@ -2,18 +2,15 @@ var jwt = require('jsonwebtoken');
 
 function authenticate(req, res, next) {
 
-    const reqData = { ...req.body.data };
+    const { accesstoken, user } = req.headers;
 
-    if (reqData.accessToken === undefined || reqData.user === undefined) {
+    if (accesstoken === undefined || user === undefined) {
         res.status(400).send("request does not contain valid data")
     }
 
-    const userAccessToken = reqData.accessToken;
-    const user = JSON.parse(reqData.user);
+    const userTrueToken = jwt.sign(JSON.parse(user), process.env.ACCESS_TOKEN_SECRET);
 
-    const userTrueToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-
-    if (userTrueToken === userAccessToken) {
+    if (userTrueToken === accesstoken) {
         console.log("user authorized");
 
         next();

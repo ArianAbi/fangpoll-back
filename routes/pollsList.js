@@ -12,8 +12,9 @@ const supabase = createSupabaseClient(supabaseUrl, supabaseKey)
 /* GET home page. */
 router.post('/', (async (req, res) => {
 
-    const userID = JSON.parse(JSON.parse(req.body.data.user)).id;
+    const { accesstoken, user } = req.headers;
 
+    const userID = JSON.parse(JSON.parse(user)).id;
     let Polls;
 
     try {

@@ -34,7 +34,7 @@ app.use('/login', loginRouter);
 app.use('/pollsList', authenticate, pollsListRouter)
 app.post('/isLogged', authenticate, (req, res) => {
 
-  const user = (JSON.parse(JSON.parse(req.body.data.user)))
+  const user = (JSON.parse(JSON.parse(req.headers.user)))
 
   res.status(200).json({ username: user.username })
 })
