@@ -10,7 +10,16 @@ router.delete("/:id", async (req, res) => {
 
     console.log(req.params.id);
 
-    res.send("deleting")
+    try {
+        const data = await supabase
+            .from("polls")
+            .delete()
+            .eq('id', req.params.id)
+
+        res.send("deleted")
+    } catch (err) {
+        res.send(err)
+    }
 
 })
 

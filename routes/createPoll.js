@@ -8,7 +8,7 @@ const supabase = createSupabaseClient(supabaseUrl, supabaseKey)
 
 router.post("/", (async (req, res) => {
 
-    const user = JSON.parse(JSON.parse(req.body.data.user))
+    const user = JSON.parse(JSON.parse(req.headers.user))
 
 
     let data;

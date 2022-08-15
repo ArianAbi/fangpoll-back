@@ -14,6 +14,8 @@ var createPoll = require('./routes/createPoll');
 var pollPage = require('./routes/pollPage');
 var pollSubmit = require('./routes/pollSubmit');
 var pollVotes = require('./routes/pollVotes');
+var deletePoll = require('./routes/deletePoll');
+var editPoll = require('./routes/editPoll');
 var authenticate = require('./authenticate');
 
 var app = express();
@@ -34,11 +36,14 @@ app.use('/login', loginRouter);
 app.use('/pollsList', authenticate, pollsListRouter)
 app.post('/isLogged', authenticate, (req, res) => {
 
+  //const user = (JSON.parse(JSON.parse(req.headers.user)))
   const user = (JSON.parse(JSON.parse(req.headers.user)))
 
   res.status(200).json({ username: user.username })
 })
 app.use('/createPoll', authenticate, createPoll)
+app.use('/deletePoll', authenticate, deletePoll)
+app.use('/editPoll', authenticate, editPoll)
 app.use('/pollPage', pollPage)
 app.use('/pollSubmit', pollSubmit)
 app.use('/pollVotes', pollVotes)
