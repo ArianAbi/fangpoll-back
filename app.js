@@ -16,6 +16,7 @@ var pollSubmit = require('./routes/pollSubmit');
 var pollVotes = require('./routes/pollVotes');
 var deletePoll = require('./routes/deletePoll');
 var editPoll = require('./routes/editPoll');
+var signup = require('./routes/signup');
 var authenticate = require('./authenticate');
 
 var app = express();
@@ -33,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
+app.use('/signup', signup)
 app.use('/pollsList', authenticate, pollsListRouter)
 app.post('/isLogged', authenticate, (req, res) => {
 
