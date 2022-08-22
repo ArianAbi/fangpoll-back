@@ -2,13 +2,13 @@ var express = require('express');
 var router = express.Router();
 const createSupabaseClient = require("@supabase/supabase-js").createClient;
 
-const supabaseUrl = process.env.SUPABASE_URL
-const supabaseKey = process.env.SUPABASE_KEY
-const supabase = createSupabaseClient(supabaseUrl, supabaseKey)
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
+const supabase = createSupabaseClient(supabaseUrl, supabaseKey);
 
 router.post("/", (async (req, res) => {
 
-    const user = JSON.parse(JSON.parse(req.headers.user))
+    const user = JSON.parse(JSON.parse(req.headers.user));
 
 
     let data;
@@ -20,14 +20,14 @@ router.post("/", (async (req, res) => {
                 title: `${req.body.data.title}`,
                 description: `${req.body.data.description}`,
                 options: req.body.data.options
-            }])
+            }]);
 
 
     } catch (err) {
         console.log(err);
     }
 
-    res.json(data)
+    res.json(data);
 
 }))
 
