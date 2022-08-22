@@ -16,6 +16,7 @@ router.post('/', (async (req, res) => {
 
     const userID = JSON.parse(JSON.parse(user)).id;
     let Polls;
+    let Votes = [];
 
     try {
 
@@ -34,8 +35,10 @@ router.post('/', (async (req, res) => {
         console.log(err);
     }
 
+
+    console.log(Polls.body);
     res.json(Polls.body)
 
 }))
-
+//950d6b28-398d-41ce-abf1-5a01ef855f00
 module.exports = router;
