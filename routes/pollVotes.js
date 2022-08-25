@@ -6,9 +6,9 @@ const supabaseUrl = process.env.SUPABASE_URL
 const supabaseKey = process.env.SUPABASE_KEY
 const supabase = createSupabaseClient(supabaseUrl, supabaseKey)
 
-router.post('/', (async (req, res) => {
+router.get('/:id', (async (req, res) => {
 
-    const poll_id = req.body.data.poll_id.id;
+    const poll_id = req.params.id
 
     try {
         const participanceData = await supabase
