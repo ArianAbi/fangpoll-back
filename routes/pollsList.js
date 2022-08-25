@@ -16,7 +16,7 @@ router.post('/', (async (req, res) => {
 
     const userID = JSON.parse(JSON.parse(user)).id;
     let Polls;
-    let Votes = [];
+    let list = [];
 
     try {
 
@@ -35,10 +35,41 @@ router.post('/', (async (req, res) => {
         console.log(err);
     }
 
+    // Polls.body.forEach(async (poll) => {
+    //     const votes = await supabase
+    //         .from('polls')
+    // .select(`
+    //     *,
+    //     participanceChoise (
+    //         poll_id
+    //     )
+    //   `)
+    // .eq("id", poll.id)
 
-    console.log(Polls.body);
-    res.json(Polls.body)
+    //     list = votes.body
+    // });
+
+    // console.log(list);
+
+    (async () => {
+        for (let i = 0; i < Polls.body.length; i++) {
+            const vote = await supabase
+                .from('polls')
+                .select(`
+                *,
+                participanceChoise (
+                    poll_id
+                )
+              `)
+                .eq("id", Polls.body[i].id)
+
+            list.push(vote.body)
+        }
+        res.json(list)
+    })()
+
+
 
 }))
-//950d6b28-398d-41ce-abf1-5a01ef855f00
+
 module.exports = router;
