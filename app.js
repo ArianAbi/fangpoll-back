@@ -9,14 +9,14 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
+var signup = require('./routes/signup');
 var pollsListRouter = require('./routes/pollsList');
 var createPoll = require('./routes/createPoll');
 var pollPage = require('./routes/pollPage');
 var pollSubmit = require('./routes/pollSubmit');
 var pollVotes = require('./routes/pollVotes');
-var deletePoll = require('./routes/deletePoll');
 var editPoll = require('./routes/editPoll');
-var signup = require('./routes/signup');
+var pollDelete = require('./routes/pollDelete');
 var authenticate = require('./authenticate');
 
 var app = express();
@@ -44,8 +44,8 @@ app.post('/isLogged', authenticate, (req, res) => {
   res.status(200).json({ username: user.username })
 })
 app.use('/createPoll', authenticate, createPoll)
-app.use('/deletePoll', authenticate, deletePoll)
 app.use('/editPoll', authenticate, editPoll)
+app.use('/pollDelete', authenticate, pollDelete);
 app.use('/pollPage', pollPage)
 app.use('/pollSubmit', pollSubmit)
 app.use('/pollVotes', pollVotes)

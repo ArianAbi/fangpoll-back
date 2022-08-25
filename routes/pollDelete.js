@@ -1,12 +1,13 @@
-var express = require("express");
-var router = express.Router();
+const express = require('express');
+const res = require('express/lib/response');
+const router = express.Router();
 const createSupabaseClient = require("@supabase/supabase-js").createClient;
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createSupabaseClient(supabaseUrl, supabaseKey);
 
-router.delete("/:id", async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
         const participanceData = await supabase
             .from("participanceChoise")
@@ -22,7 +23,6 @@ router.delete("/:id", async (req, res) => {
     } catch (err) {
         res.send(err);
     }
-
 })
 
 module.exports = router;
