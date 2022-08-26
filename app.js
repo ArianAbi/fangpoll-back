@@ -10,6 +10,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var signup = require('./routes/signup');
+var userExist = require('./routes/userExists');
 var pollsListRouter = require('./routes/pollsList');
 var createPoll = require('./routes/createPoll');
 var pollPage = require('./routes/pollPage');
@@ -34,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
+app.use('/userExist', userExist)
 app.use('/signup', signup)
 app.use('/pollsList', authenticate, pollsListRouter)
 app.post('/isLogged', authenticate, (req, res) => {
